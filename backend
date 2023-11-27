@@ -1,0 +1,28 @@
+const express = require('express');
+const router = express.Router();
+const Design = require('../models/Design');
+
+router.get('/', async (req, res) => {
+ try {
+    const designs = await Design.find();
+    res.json(designs);
+ } catch (err) {
+    res.status(500).json({ message: err.message });
+ }
+});
+
+router.post('/', async (req, res) => {
+ const design = new Design({
+    title: req.body.title,
+    imageUrl: req.body.imageUrl,
+ });
+
+ try {
+    const savedDesign = await design.save();
+    res.status(201).json(savedDesign);
+ } catch (err) {
+    res.status(500).json({ message: err.message });
+ }
+});
+
+module.exports = router;
