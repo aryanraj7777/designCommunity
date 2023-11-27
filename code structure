@@ -1,0 +1,77 @@
+ simplified code structure for the designcommunity website:
+ - client
+ - components
+    - DesignList.js
+    - DesignForm.js
+    - CommentList.js
+    - CommentForm.js
+ - App.js
+- server
+ - controllers
+    - designController.js
+    - commentController.js
+ - models
+    - Design.js
+    - Comment.js
+ - routes
+    - designRoutes.js
+    - commentRoutes.js
+ - app.js
+- public
+ - index.html
+- .env
+- package.json
+
+   // DesignList.js
+import React, { useEffect, useState } from 'react';
+
+const DesignList = () => {
+ const [designs, setDesigns] = useState([]);
+
+ useEffect(() => {
+    // Fetch designs from the server
+ }, []);
+
+ return (
+    <div>
+      {designs.map(design => (
+        <div key={design._id}>
+          <h3>{design.title}</h3>
+          <img src={design.imageUrl} alt={design.title} />
+          {/* Display design details, comments, and edit/delete options */}
+        </div>
+      ))}
+    </div>
+ );
+};
+
+export default DesignList;
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// DesignForm.js
+import React, { useState } from 'react';
+
+const DesignForm = () => {
+ const [title, setTitle] = useState('');
+ const [imageUrl, setImageUrl] = useState('');
+
+ const handleSubmit = async (e) => {
+    e.preventDefault();
+    // Send design data to the server for saving
+ };
+
+ return (
+    <form onSubmit={handleSubmit}>
+      <label>Title:</label>
+      <input type="text" value={title} onChange={e => setTitle(e.target.value)} />
+      
+      <label>Image URL:</label>
+      <input type="text" value={imageUrl} onChange={e => setImageUrl(e.target.value)} />
+      
+      <button type="submit">Post Design</button>
+    </form>
+ );
+};
+
+export default DesignForm;
