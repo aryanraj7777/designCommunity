@@ -1,0 +1,31 @@
+import React, { useState, useEffect } from 'react';
+import DesignForm from './components/DesignForm';
+import DesignList from './components/DesignList';
+
+const App = () => {
+ const [designs, setDesigns] = useState([]);
+
+ useEffect(() => {
+    const fetchDesigns = async () => {
+      try {
+        const response = await fetch('/api/designs');
+        const data = await response.json();
+        setDesigns(data);
+      } catch (err) {
+        console.error('Error fetching designs:', err);
+      }
+    };
+
+    fetchDesigns();
+ }, []);
+
+ return (
+    <div>
+      <h1>Design Community</h1>
+      <DesignForm />
+      <DesignList designs={designs} />
+    </div>
+ );
+};
+
+export default App;
